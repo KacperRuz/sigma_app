@@ -1,12 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import getCookie from "../../components/csrftoken";
 import { Box, useTheme } from "@mui/material";
 import { tokens } from "./../../theme";
-import getCookie from "../../components/csrftoken";
 import Header from "../../components/Header";
 import axios from 'axios';
+import trans_logo from "../../assets/images/trans_sigma.png";
+import { height } from "@mui/system";
 
-const Login = ({ login, setLogin }) => {
+const Login = ({ setLogin, setAccess }) => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -34,9 +36,11 @@ const Login = ({ login, setLogin }) => {
             else{
                 navigate("/");
                 setSuccess(true);
+                setAccess("admin");
             }
         })
     }
+    
 
     useEffect(() => {
         userRef.current.focus();
@@ -47,23 +51,23 @@ const Login = ({ login, setLogin }) => {
     }, [ user, pwd ])
 
     return (
-        <Box sx={{margin: "20px"}}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Header title="Logowanie" subtitle="Zaloguj się do serwisu"/>
-            </Box>
+        <Box sx={{width: "100%", height: "100%", display: "flex", allignitems: "center", justifyContent: "center"}}>
             <Box sx={{ 
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center", 
-                alignItems: "space-evenly",
+                alignItems: "center",
                 width: "400px",
                 padding: "40px",
                 fontSize: "20px",
-                borderRadius: "10px"
+                borderRadius: "10px",
                 }}>
+                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Header title="Logowanie" subtitle="Zaloguj się do serwisu"/>
+                </Box>
                 <Box>
                     <label htmlFor="username" style={{marginRight: "11px"}} >Login</label>
-                    <input 
+                    <input
                         type="text" 
                         id="username" 
                         ref={userRef} 
@@ -83,10 +87,14 @@ const Login = ({ login, setLogin }) => {
                         required
                     />
                 </Box>
-                <button id="loginSubmitButton" onClick={handleLogin}>Zaloguj</button>
+                <Box>
+                    <Box>
+                        <button id="loginSubmitButton" onClick={handleLogin}>Zaloguj</button>
+                    </Box>
+                </Box>
                 <p ref={errRef} style={{color: colors.redAccent[600]}} >{errMsg}</p>
             </Box>
-        </Box>  
+        </Box>
     )
 }
 

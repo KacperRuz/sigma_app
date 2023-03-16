@@ -1,7 +1,7 @@
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
-import { ColorModeContext, tokens } from "../../theme";
 import { useNavigate } from "react-router-dom"
+import { ColorModeContext, tokens } from "../../theme";
 import Clock from "../../components/Clock";
 import InputBase from '@mui/material/InputBase';
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -12,11 +12,15 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import LoginButton from "../../components/LoginButton";
 import LogoutButton from "../../components/LogoutButton";
 
-const Topbar = ( { selected, setSelected, login, setLogin }) => {
+const Topbar = ( { selected, setSelected, login, setLogin, setAccess }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
 
+    if(login == null){
+        return "";
+    }
+    else{
     return (
         <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap" p={2}>
             {/*Search Bar*/}
@@ -51,6 +55,7 @@ const Topbar = ( { selected, setSelected, login, setLogin }) => {
                     selected={selected}
                     setSelected={setSelected}
                     setLogin={setLogin}
+                    setAccess={setAccess}
                 />)
             }
             {/*Icon Section*/}
@@ -65,6 +70,7 @@ const Topbar = ( { selected, setSelected, login, setLogin }) => {
             </Box>
         </Box>
     );
+    }
 }
 
 export default Topbar;

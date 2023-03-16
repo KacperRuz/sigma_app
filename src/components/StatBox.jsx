@@ -9,7 +9,7 @@ const StatBox = ({ title, icon, capacity }) => {
     const colors = tokens(theme.palette.mode);
 
     // Zapełnienie grupy (max 21 osób) wyrażone jako ułamek 
-    const angle = (capacity / 21);
+    const angle = (capacity / 18);
 
     return (
         <Box
@@ -44,7 +44,7 @@ const StatBox = ({ title, icon, capacity }) => {
             <Box display="flex" flexDirection="column" justifyContent="center" alignItems="space-between">
                 <CapacityCircle capacity={angle} />
                 <Typography variant="h5" fontWeight="bold" marginTop="20px" sx={{ color: colors.blueAccent[300]}}>
-                    Aktualny stan: {capacity}/21
+                    Aktualny stan: {capacity}/18
                 </Typography>
             </Box>
         </Box>

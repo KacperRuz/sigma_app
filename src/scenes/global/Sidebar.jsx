@@ -51,12 +51,16 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
 }));
 
-const Sidebar = ({ selected, setSelected }) => {
+const Sidebar = ({ selected, setSelected, login }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const [isCollapsed, setIsCollapsed] = useState(false);
 
+    if(login == null){
+        return "";
+    }
+    else{
     return (
         <Box
             sx={{
@@ -78,7 +82,7 @@ const Sidebar = ({ selected, setSelected }) => {
             }}
         >
             <ProSidebar collapsed={isCollapsed}>
-                <Menu iconShape="square">
+                <Menu iconShape="square" >
                     {/* Logo i menu */}
                     <MenuItem
                         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -107,14 +111,19 @@ const Sidebar = ({ selected, setSelected }) => {
                             </Box>
                         )}
                     </MenuItem>
-                    <StyledBadge
-                        overlap="circular"
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                        variant="dot"
-                        sx={{ m: "10px 0 40px 20%"}}
-                    >
-                        <Avatar alt="Sigma logo" src={sigma} sx={{ height: "50px", width: "50px" }}/>
-                    </StyledBadge>
+                    {/* Avatar wyświetlany zależnie od zalogowania */}
+                    {login && (
+                            <StyledBadge
+                                overlap="circular"
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                variant="dot"
+                                sx={{ m: "10px 0 40px 20%" }}
+                            >
+                                <Avatar alt="Sigma logo" src={sigma} sx={{ height: "50px", width: "50px" }}/>
+                            </StyledBadge>
+                        )
+                    }
+                    
                     <Box paddingLeft={isCollapsed ? undefined : "10%"}>
                         <Item
                             title="Strona główna"
@@ -184,6 +193,7 @@ const Sidebar = ({ selected, setSelected }) => {
             </ProSidebar>
         </Box>
     );
+    }
 }
 
 export default Sidebar;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { tokens } from "../theme";
 import axios from 'axios';
 
-const LogoutButton = ({ user, value, title, to, icon, selected, setSelected, setLogin }) => {
+const LogoutButton = ({ user, value, title, to, icon, selected, setSelected, setLogin, setAccess }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     
@@ -13,6 +13,7 @@ const LogoutButton = ({ user, value, title, to, icon, selected, setSelected, set
         axios.get('api/logout')
         .then(res => {
             setLogin(null);
+            setAccess(null);
         })
     };
 
@@ -29,7 +30,7 @@ const LogoutButton = ({ user, value, title, to, icon, selected, setSelected, set
             >
                 {user && `Zalogowano: ${user}`}
             </Typography>
-            <Link to={to} active={selected === title} onClick={logoutHandler} backgroundColor={colors.redAccent[600]} >
+            <Link to={to} active={(selected === title) ? "true" : "false" } onClick={logoutHandler} >
                 <Box width="150px" height="40px" sx={{ 
                     display: "flex", 
                     justifyContent: "space-evenly", 

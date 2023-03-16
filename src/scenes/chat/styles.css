@@ -1,0 +1,20 @@
+.chat_header {
+    border: 2px solid #868dfb;
+    background-color: #6870fa;
+    border-radius: 5px;
+}
+.chat_container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    word-break: break-all;
+}
+
+#messages{
+    color: black;
+}
+
+#mes_wrapper{
+    color: black;
+    height: 23%;
+}
