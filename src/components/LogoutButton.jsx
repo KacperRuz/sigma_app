@@ -2,6 +2,7 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { Link } from "react-router-dom";
 import { tokens } from "../theme";
+import axios from 'axios';
 
 const LogoutButton = ({ user, value, title, to, icon, selected, setSelected, setLogin }) => {
     const theme = useTheme();
@@ -9,7 +10,10 @@ const LogoutButton = ({ user, value, title, to, icon, selected, setSelected, set
     
     const logoutHandler = () => {
         setSelected(title);
-        setLogin(null);
+        axios.get('api/logout')
+        .then(res => {
+            setLogin(null);
+        })
     };
 
     return (  

@@ -1,7 +1,11 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import axios from 'axios';
+
 import { useState } from "react";
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom"
 import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
 import HomePage from './scenes/homePage';
@@ -18,12 +22,29 @@ function App() {
   const [selected, setSelected] = useState("Dashboard");
   const [login, setLogin] = useState(null);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  axios.get('api/auth')
+  .then(res => {
+      axios.defaults.withCredentials = true;
+      const data = res.data;
+      if(data.context == false){
+        if(location.pathname != "/login")
+          navigate("/login");
+          setLogin(null); // <---------
+      }
+      else{
+        setLogin(true);
+      }
+  })
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar selected={selected} setSelected={setSelected} login={login} />
+          <Sidebar selected={selected} setSelected={setSelected}/>
           <main className='content'>
             <Topbar selected={selected} setSelected={setSelected} login={login} setLogin={setLogin} />
             <Routes>
@@ -41,6 +62,16 @@ function App() {
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
+  
 }
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 export default App;

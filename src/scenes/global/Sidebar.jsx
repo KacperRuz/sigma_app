@@ -51,7 +51,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
 }));
 
-const Sidebar = ({ selected, setSelected, login }) => {
+const Sidebar = ({ selected, setSelected }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 

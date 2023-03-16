@@ -1,6 +1,7 @@
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
+import { useNavigate } from "react-router-dom"
 import Clock from "../../components/Clock";
 import InputBase from '@mui/material/InputBase';
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -45,7 +46,7 @@ const Topbar = ( { selected, setSelected, login, setLogin }) => {
                     user={login}
                     value="Wyloguj"
                     title="Wylogowanie"
-                    to="/"
+                    to="/login"
                     icon={<LogoutOutlinedIcon />}
                     selected={selected}
                     setSelected={setSelected}
