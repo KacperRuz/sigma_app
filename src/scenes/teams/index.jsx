@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import getCookie from "../../components/csrftoken";
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "./../../theme";
 import { studenci } from "../../data/studenci";
@@ -58,6 +59,13 @@ const Teams = ({students, login, access }) => {
     // zamiana grup dla wybranych użytkowników
     const switchUsersHandler = () => {
         var tempGroupNr = pickedUsers[0].group;
+        axios.defaults.withCredentials = true;
+        axios.post('switch_groups', {user1: pickedUsers[0].id, user2: pickedUsers[1].id})
+        .then(res => {
+            const data = res.data;
+            console.log(data.context);
+        })
+
         pickedUsers[0].group = pickedUsers[1].group;
         pickedUsers[1].group = tempGroupNr;
         setToggleMoveButtons(false);
@@ -72,6 +80,12 @@ const Teams = ({students, login, access }) => {
 
     // zamiana grupy dla pojedynczego wybranego użytkownika
     const moveUserHandler = (group) => {
+        axios.defaults.withCredentials = true;
+        axios.post('change_group', {user: pickedUsers[0].id, group: group})
+        .then(res => {
+            const data = res.data;
+            console.log(data.context);
+        })
         pickedUsers[0].group = group;
         setToggleMoveButtons(false);
         setPickedUsers([]);

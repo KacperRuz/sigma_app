@@ -191,7 +191,7 @@ const BarChart = ({ students }) => {
                 translateY: -46,
                 itemsSpacing: 3,
                 itemWidth: 101,
-                itemHeight: 21,
+                itemHeight: 18,
                 itemDirection: 'left-to-right',
                 itemOpacity: 0.85,
                 symbolSize: 19,

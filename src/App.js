@@ -55,7 +55,7 @@ function App() {
     axios.get('/get_groups_data')
     .then(res => {
         const data = res.data;
-        console.log(data.context);
+        //console.log(data.context);
         var temp_students = []
         for(var i=0; i < data.context.length; i++){
           var student = {

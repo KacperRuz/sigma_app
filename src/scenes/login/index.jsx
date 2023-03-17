@@ -27,16 +27,16 @@ const Login = ({ setLogin, setAccess }) => {
         axios.defaults.headers.common['X-CSRFToken'] = getCookie('csrftoken');
         axios.defaults.withCredentials = true;
         axios.post('api/login', {username: user, password: pwd})
-        .then(res => {
+        .then(res => {  
             const data = res.data;
             console.log(data);
             if(data.context == "false"){
                 setErrMsg("Niepoprawny login/hasło.");
             }
             else{
+                setSuccess(data.context);
+                setAccess(data.access);
                 navigate("/");
-                setSuccess(true);
-                setAccess("admin");
             }
         })
     }
